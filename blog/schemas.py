@@ -1,16 +1,17 @@
 from pydantic import BaseModel, field_validator
+from typing import Optional, List
 
 class BlogBase(BaseModel):
     title: str
     body: str
 
-class BlogCreate(BlogBase):
-    pass
-
 class Blog(BlogBase):
-
-    class Config:
+    class Config():
         orm_mode = True
+
+class BlogCreate(BlogBase):
+    user_id: int
+
 
 class UserCreate(BaseModel):
     name: str
@@ -21,6 +22,12 @@ class UserCreate(BaseModel):
 class User(BaseModel):
     name: str
     email: str
+    blogs: List[Blog] = []
 
+    class Config:
+        orm_mode = True
+
+class Blog(BlogBase):
+    creator: User
     class Config:
         orm_mode = True
