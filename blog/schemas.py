@@ -31,3 +31,9 @@ class Blog(BlogBase):
     creator: User
     class Config:
         orm_mode = True
+
+class Login(BaseModel):
+    username: str
+    password: str 
+    class Config:
+        orm_mode = True
